@@ -1,0 +1,22 @@
+swagger: "2.0"
+info:
+  title: Listr API Definition
+  description: "Listr's API definition"
+  version: "1.0.0"
+host: DNS_NAME_OF_DEPLOYED_API
+schemes:
+  - "https"
+produces:
+  - application/json
+paths:
+  /user:
+    post:
+      summary: Creates a new user
+      parameters:
+        - 
+          in: path
+          name: userId
+          required: true
+          type: string
+          description: 
+        
