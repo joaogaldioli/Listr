@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { EntityState } from '@datorama/akita';
-import { EntityStore, StoreConfig } from '@datorama/akita/src/lib';
-import { Task } from 'src/app/models/task';
+import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
+import { Task } from '../../models/task';
 
 export interface TaskState extends EntityState<Task> {}
 
