@@ -11,7 +11,6 @@ const LoginComponent = ({ navigation }) => {
         navigation.navigate('Home');
     };
     
-
     return (
         <View style={styles.container}>
             <Text style={styles.title}>
