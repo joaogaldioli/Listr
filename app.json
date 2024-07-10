@@ -7,12 +7,14 @@
       "**/*"
     ],
     "plugins": [
-      "expo-font",
-      {
-        "fonts": [
-          "./assets/fonts/Satoshi-Black.ttf"
-        ]
-      }
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Satoshi-Black.ttf"
+          ]
+        }
+      ]
     ]
   }
 }
