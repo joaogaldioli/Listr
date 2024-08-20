@@ -1,30 +1,135 @@
+import { set } from 'date-fns';
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
 
 const AddTaskComponent = () => {
-    const [task, setTask] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        description: '',
+        type: '',
+        frequency: '',
+        time: '',
+        group: ''
+    });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission logic here
-        console.log('Task:', task);
-        // Reset the form
-        setTask('');
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const goToPage1 = () => setCurrentPage(1);
+    const goToPage2 = () => setCurrentPage(2);
+
+    const handleChange = (name, value) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const validate = () => {
+      let valid = true;
+      let errors = {};
+
+      if (!formData.name) {
+        valid = false;
+        errors.name = 'Name is required';
+      }
+
+      if (!formData.frequency) {
+        valid = false;
+        errors.frequency = 'Frequency is required';
+      }
     };
 
     return (
-        <View>
-            <Text>Add Task</Text>
-            <TextInput
-                value={task}
-                onChangeText={(text) => setTask(text)}
-            />
-            <Button
-                title="Add"
-                onPress={handleSubmit}
-            />
+        <View style={styles.container}>
+          {currentPage === 1 ? (
+            <View>
+              <View style={styles.formGroup}>
+                <Text style={styles.label}>Name:</Text>
+                <TextInput
+                  style={styles.input}
+                  value={formData.name}
+                  onChangeText={(value) => handleChange('name', value)}
+                />
+              </View>
+              <View style={styles.formGroup}>
+                <Text style={styles.label}>Description:</Text>
+                <TextInput
+                  style={styles.input}
+                  value={formData.description}
+                  onChangeText={(value) => handleChange('description', value)}
+                  keyboardType="default"
+                />
+              </View>
+              <View style={styles.formGroup}>
+                <Text style={styles.label}>Type:</Text>
+                <TextInput
+                  style={[styles.input, styles.textArea]}
+                  value={formData.type}
+                  onChangeText={(value) => handleChange('type', value)}
+                  multiline
+                />
+              </View>
+            </View>
+          ) : (
+            <View>
+              <View style={styles.formGroup}>
+                <Text style={styles.label}>Frequency:</Text>
+                <TextInput
+                  style={[styles.input, styles.textArea]}
+                  value={formData.frequency}
+                  onChangeText={(value) => handleChange('frequency', value)}
+                  multiline
+                />
+              </View>
+              <View style={styles.formGroup}>
+                <Text style={styles.label}>Type:</Text>
+                <TextInput
+                  style={[styles.input, styles.textArea]}
+                  value={formData.type}
+                  onChangeText={(value) => handleChange('time', value)}
+                  multiline
+                />
+              </View>
+            </View>
+          )}
+          <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
         </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+      padding: 20,
+    },
+    formGroup: {
+      marginBottom: 15,
+    },
+    label: {
+      fontSize: 16,
+      marginBottom: 5,
+    },
+    input: {
+      borderWidth: 1,
+      borderColor: '#ccc',
+      padding: 10,
+      borderRadius: 5,
+    },
+    textArea: {
+      height: 100,
+      textAlignVertical: 'top',
+    },
+    button: {
+      backgroundColor: '#007BFF',
+      padding: 15,
+      borderRadius: 5,
+      alignItems: 'center',
+    },
+    buttonText: {
+      color: '#fff',
+      fontSize: 16,
+    },
+  });
 
 export default AddTaskComponent;
