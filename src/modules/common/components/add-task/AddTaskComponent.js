@@ -1,6 +1,7 @@
 import { set } from 'date-fns';
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
+import { FrequencyEnum } from '../../models/TaskEnums';
 
 const AddTaskComponent = () => {
     const [formData, setFormData] = useState({
@@ -24,6 +25,33 @@ const AddTaskComponent = () => {
         });
     };
 
+    let frequencyContent;
+
+    switch (formData.frequency) {
+      case FrequencyEnum.Daily:
+        frequencyContent = (
+          <View>
+            <Text>Enter time:</Text>
+            <TextInput
+              value={formData.time}
+              onChangeText={(value) => handleChange('time', value)}
+            />
+          </View>
+        );
+        break;
+      case FrequencyEnum.Weekly:
+        frequencyContent = (
+          <View>
+            <Text>Enter day:</Text>
+            <TextInput
+              value={formData.time}
+              onChangeText={(value) => handleChange('time', value)}
+            />
+          </View>
+        )
+        
+    }
+
     const validate = () => {
       let valid = true;
       let errors = {};
@@ -38,6 +66,8 @@ const AddTaskComponent = () => {
         errors.frequency = 'Frequency is required';
       }
     };
+
+
 
     return (
         <View style={styles.container}>
@@ -69,9 +99,6 @@ const AddTaskComponent = () => {
                   multiline
                 />
               </View>
-            </View>
-          ) : (
-            <View>
               <View style={styles.formGroup}>
                 <Text style={styles.label}>Frequency:</Text>
                 <TextInput
@@ -81,12 +108,16 @@ const AddTaskComponent = () => {
                   multiline
                 />
               </View>
+            </View>
+          ) : (
+            <View>
+              {frequencyContent}
               <View style={styles.formGroup}>
-                <Text style={styles.label}>Type:</Text>
+                <Text style={styles.label}>Group:</Text>
                 <TextInput
                   style={[styles.input, styles.textArea]}
-                  value={formData.type}
-                  onChangeText={(value) => handleChange('time', value)}
+                  value={formData.group}
+                  onChangeText={(value) => handleChange('group', value)}
                   multiline
                 />
               </View>
