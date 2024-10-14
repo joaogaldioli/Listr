@@ -1,6 +1,6 @@
 import { set } from 'date-fns';
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { FrequencyEnum } from '../../models/TaskEnums';
 
 const AddTaskComponent = () => {
@@ -28,6 +28,17 @@ const AddTaskComponent = () => {
     let frequencyContent;
 
     switch (formData.frequency) {
+      case FrequencyEnum.Singular:
+        frequencyContent = (
+          <View>
+            <Text>Enter day and time:</Text>
+            <TextInput
+              value={formData.time}
+              onChangeText={(value) => handleChange('time', value)}
+            />
+          </View>
+        );
+        break;
       case FrequencyEnum.Daily:
         frequencyContent = (
           <View>
@@ -48,8 +59,42 @@ const AddTaskComponent = () => {
               onChangeText={(value) => handleChange('time', value)}
             />
           </View>
-        )
-        
+        );
+        break;
+      case FrequencyEnum.Monthly:
+        frequencyContent = (
+          <View>
+            <Text>Enter day:</Text>
+            <TextInput
+              value={formData.time}
+              onChangeText={(value) => handleChange('time', value)}
+            />
+          </View>
+          
+        );
+        break;
+      case FrequencyEnum.Yearly:
+        frequencyContent = (
+          <View>
+            <Text>Enter day:</Text>
+            <TextInput
+              value={formData.time}
+              onChangeText={(value) => handleChange('time', value)}
+            />
+          </View>
+        );
+        break;
+      case FrequencyEnum.Custom:
+        frequencyContent = (
+          <View>
+            <Text>Enter day:</Text>
+            <TextInput
+              value={formData.time}
+              onChangeText={(value) => handleChange('time', value)}
+            />
+          </View>
+        );
+        break;
     }
 
     const validate = () => {
@@ -108,6 +153,9 @@ const AddTaskComponent = () => {
                   multiline
                 />
               </View>
+              <TouchableOpacity style={styles.button} onPress={goToPage1}>
+                <Text style={styles.buttonText}>Next</Text>
+              </TouchableOpacity>
             </View>
           ) : (
             <View>
@@ -123,6 +171,9 @@ const AddTaskComponent = () => {
               </View>
             </View>
           )}
+          <TouchableOpacity style={styles.button} onPress={goToPage2}>
+            <Text style={styles.buttonText}>Back</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
